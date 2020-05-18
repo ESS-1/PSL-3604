@@ -71,6 +71,7 @@ void TSreg::operator = (uint32_t Value)
   SpiWr(BYTE2(Value));
   SpiWr(BYTE3(Value));
   //ожидание окончания передачи:
+  while(!(SPI1->SR & SPI_SR_TXE));
   while(SPI1->SR & SPI_SR_BSY);
   TSysTimer::Delay_us(1); //задержка
   Pin_LOAD = 1;
