@@ -129,7 +129,7 @@ TEeSection::TEeSection(uint16_t size)
   Sign = Base + size; //смещение сигнатуры
   EeTop = Sign + 1;   //новое начало свободного места EEPROM
   Valid = 1;
-  if(EeTop > EEPROM_SIZE)
+  if(EeTop > EEPROM_SIZE/2)
   {
     TEeprom::Error |= ER_ALLOC;
     Valid = 0;
@@ -186,7 +186,7 @@ TCrcSection::TCrcSection(uint16_t size) : TEeSection(size)
 {
   Crc = EeTop;     //смещение CRC
   EeTop = Crc + 1; //новое начало свободного места EEPROM
-  if(EeTop > EEPROM_SIZE)
+  if(EeTop > EEPROM_SIZE/2)
   {
     TEeprom::Error |= ER_ALLOC;
     Valid = 0;
