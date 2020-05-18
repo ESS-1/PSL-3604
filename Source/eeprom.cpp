@@ -204,9 +204,11 @@ TCrcSection::TCrcSection(uint16_t size) : TEeSection(size)
 uint16_t TCrcSection::GetCRC(void)
 {
   RCC->AHBENR |= RCC_AHBENR_CRCEN;
-  CRC->CR = CRC_CR_RESET;
+  CRC->CR |= CRC_CR_RESET;
+
   for(uint16_t i = 0; i < Size; i++)
     CRC->DR = (uint32_t)TEeprom::Read(Base + i);
+
   uint16_t result = CRC->DR;
   RCC->AHBENR &= ~RCC_AHBENR_CRCEN;
   return(result);
