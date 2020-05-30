@@ -23,9 +23,15 @@
 
 //------------------------------- Константы: ---------------------------------
 
-#define V2        22.5 //уровень напряжения V2, В
+#ifdef PSL3604
+  #define FAN_VIN 22.5 //уровень напряжения V2, В
+#endif
+#ifdef PSL3604_M1
+  #define FAN_VIN 12.0 //уровень напряжения V1, В
+#endif
+
 #define FAN_MAX_V 12.0 //максимальное напряжение питания вентилятора, В
-#define FAN_MAX_PWM ((uint16_t)(FAN_MAX_SPEED * V2 / FAN_MAX_V))
+#define FAN_MAX_PWM ((uint16_t)(FAN_MAX_SPEED * FAN_VIN / FAN_MAX_V))
 
 enum { FAN_OFF, FAN_RUN }; //состояния вентилятора
 
